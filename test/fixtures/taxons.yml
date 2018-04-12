@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  level: 1
+  parent_id: 1
+  exemplar_id: 1
+  botanist_id: 1
+
+two:
+  name: MyString
+  level: 1
+  parent_id: 1
+  exemplar_id: 1
+  botanist_id: 1

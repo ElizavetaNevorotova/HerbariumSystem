@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HerbariumSystem</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="logo"> <%= image_tag('logo.png', width: 450) %> </div>
+    <div class="col-md-10 content-block">
+      <div class="panel panel-default">
+        <%= render 'layouts/header.html.slim' %>
+        <div class="panel-body">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

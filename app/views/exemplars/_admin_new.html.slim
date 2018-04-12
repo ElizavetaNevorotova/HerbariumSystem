@@ -1,0 +1,20 @@
+div style="margin-left: auto; margin-right: auto; width: 50%"
+  = simple_form_for(Exemplar.new, url: admin_exemplars_path, method: :post) do |f|
+    = f.simple_fields_for :kind do |kind_f|
+      = kind_f.input :family_id, collection: Taxon.family.pluck(:name, :id), label: 'Семейство',
+              class: 'exemplar_family'
+      = kind_f.input :clan_id, collection: [], label: 'Род'
+      /Taxon.clan.pluck(:name, :id)
+      = kind_f.input :kind_name, label: 'Вид'
+    = f.input :box_id, label: 'Номер коробки'
+    = f.input :cupboard_id, label: 'Номер шкафа'
+    = f.input :location, label: 'Место нахождения'
+    = f.input :habitat, label: 'Место обитания'
+    /= f.input :finded_at, label: 'Дата нахождения'
+    = f.input :fund, collection: Exemplar.funds.each_with_object({}) { |(k,v), memo| memo[I18n.t("exemplar.fund.#{k}")] = v },
+      label: 'Фонд'
+    br
+    = f.input :image, as: :file, label: 'Изображение'
+
+    br
+    = f.submit 'Создать экземпляр'

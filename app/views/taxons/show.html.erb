@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @taxon.name %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @taxon.level %>
+</p>
+
+<p>
+  <strong>Parent:</strong>
+  <%= @taxon.parent_id %>
+</p>
+
+<p>
+  <strong>Exemplar:</strong>
+  <%= @taxon.exemplar_id %>
+</p>
+
+<p>
+  <strong>Botanist:</strong>
+  <%= @taxon.botanist_id %>
+</p>
+
+<%= link_to 'Edit', edit_taxon_path(@taxon) %> |
+<%= link_to 'Back', taxons_path %>

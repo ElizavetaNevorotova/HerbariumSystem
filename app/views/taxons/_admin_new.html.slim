@@ -1,0 +1,8 @@
+= simple_form_for(@taxon, url: admin_exemplar_taxons_path, method: :post) do |f|
+  = f.input :name, label: 'Название'
+  = f.input :latin_name, label: 'Латинское название'
+  - if @parent_collection.present?
+    = f.input :parent_id, collection: Taxon.family.pluck(:name, :id), label: 'Родительский таксон'
+  = f.input :level, value: @taxon.level, as: :hidden
+  br
+  = f.submit 'Создать таксон'

@@ -1,0 +1,47 @@
+<%= form_with(model: exemplar, local: true) do |form| %>
+  <% if exemplar.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(exemplar.errors.count, "error") %> prohibited this exemplar from being saved:</h2>
+
+      <ul>
+      <% exemplar.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :box_id %>
+    <%= form.number_field :box_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cupboard_id %>
+    <%= form.number_field :cupboard_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :habitat %>
+    <%= form.text_field :habitat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :finded_at %>
+    <%= form.date_select :finded_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fund %>
+    <%= form.number_field :fund %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
