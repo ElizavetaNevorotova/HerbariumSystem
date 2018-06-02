@@ -1,0 +1,2 @@
+class ReferralPagesController < ApplicationController
+end

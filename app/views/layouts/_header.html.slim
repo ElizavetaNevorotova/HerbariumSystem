@@ -1,12 +1,16 @@
 nav class="navbar navbar-default herbarium-nav"
   div class="container-fluid"
     div class="navbar-header"
-      a class="navbar-brand" href="#" Herbarium
+      = link_to 'Новости', news_referral_pages_path, class: "navbar-brand #{params[:action] == 'news' ? 'active' : ''}"
+      = link_to 'История', history_referral_pages_path, class: "navbar-brand #{params[:action] == 'history' ? 'active' : ''}"
+      = link_to 'Гербарный фонд', root_path, class: "navbar-brand #{params[:controller] == 'exemplars' ? 'active' : ''}"
+      = link_to 'Коллектив', employees_referral_pages_path, class: "navbar-brand #{params[:action] == 'employees' ? 'active' : ''}"
+      = link_to 'Контакты', contacts_referral_pages_path, class: "navbar-brand #{params[:action] == 'contacts' ? 'active' : ''}"
 
     div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
-      ul class="nav navbar-nav"
-        li class="active"
-          a href="#" Link
-          span class="sr-only" (current)
-        li
-          a href="#" Link
+      - if current_user.blank?
+        ul class="nav navbar-nav" style='float: right'
+          li = link_to 'Вход', new_user_session_path
+      - else
+        ul class="nav navbar-nav" style='float: right'
+          li = link_to('Выход', destroy_user_session_path, method: :delete)

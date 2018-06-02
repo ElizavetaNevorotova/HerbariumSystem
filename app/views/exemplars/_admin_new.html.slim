@@ -1,20 +1,41 @@
 div style="margin-left: auto; margin-right: auto; width: 50%"
   = simple_form_for(Exemplar.new, url: admin_exemplars_path, method: :post) do |f|
+    = f.label 'Инвентарный номер'
+    = f.input :inventory_id, label: false
     = f.simple_fields_for :kind do |kind_f|
-      = kind_f.input :family_id, collection: Taxon.family.pluck(:name, :id), label: 'Семейство',
+      = kind_f.label 'Семейство'
+      = kind_f.input :family_id, collection: Taxon.family.pluck(:name, :id), label: false,
               class: 'exemplar_family'
-      = kind_f.input :clan_id, collection: [], label: 'Род'
-      /Taxon.clan.pluck(:name, :id)
-      = kind_f.input :kind_name, label: 'Вид'
-    = f.input :box_id, label: 'Номер коробки'
-    = f.input :cupboard_id, label: 'Номер шкафа'
-    = f.input :location, label: 'Место нахождения'
-    = f.input :habitat, label: 'Место обитания'
-    /= f.input :finded_at, label: 'Дата нахождения'
-    = f.input :fund, collection: Exemplar.funds.each_with_object({}) { |(k,v), memo| memo[I18n.t("exemplar.fund.#{k}")] = v },
-      label: 'Фонд'
+      = kind_f.label 'Род'
+      = kind_f.input :clan_id, collection: [], label: false
+      = kind_f.label 'Название вида'
+      = kind_f.input :name, label: false
+      = kind_f.label 'Латинское название вида'
+      = kind_f.input :latin_name, label: false
+    = f.label 'Номер коробки'
+    = f.input :box_id, label: false
+    = f.label 'Номер шкафа'
+    = f.input :cupboard_id, label: false
+    = f.label 'Место нахождения'
+    = f.input :location, label: false
+    = f.label 'Место обитания'
+    = f.input :habitat, label: false
+    = f.label 'Фонд'
+    = f.input :fund, collection: Exemplar.funds.each_with_object({}) { |(k, v), memo| memo[I18n.t("exemplar.fund.#{k}")] = k },
+      label: false
+    = f.label 'Коллекторы'
+    = f.input :finder_ids, collection: botanists_collection, input_html: { multiple: true }, label: false
+    = f.simple_fields_for :kind do |kind_f|
+      = kind_f.label 'Определители'
+      = kind_f.input :recognizer_ids, collection: botanists_collection,
+              input_html: { multiple: true }, label: false
+    div style='display: block'
+      = f.label 'Дата нахождения'
+    = f.date_select :finded_at, order: [:day, :month, :year], label: false
     br
-    = f.input :image, as: :file, label: 'Изображение'
+    br
+    = f.label 'Изображение'
+    = f.input :image, as: :file, label: false
 
     br
     = f.submit 'Создать экземпляр'

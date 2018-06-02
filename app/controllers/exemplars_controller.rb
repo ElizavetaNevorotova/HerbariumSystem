@@ -4,12 +4,25 @@ class ExemplarsController < ApplicationController
   # GET /exemplars
   # GET /exemplars.json
   def index
-    @exemplars = Exemplar.all
+    @q = exemplars_collection.ransack(params[:q])
+    @exemplars = @q.result(distinct: true)
+    respond_to do |format|
+      format.html {}
+      format.xlsx do
+        response.headers['Content-Disposition'] = "attachment; filename='Список.xlsx'"
+      end
+    end
   end
 
   # GET /exemplars/1
   # GET /exemplars/1.json
   def show
+    respond_to do |format|
+      format.html { @comments = @exemplar.comments.order(created_at: :desc) }
+      format.xlsx {
+        response.headers['Content-Disposition'] = "attachment; filename='Гербарная_этикетка-#{@exemplar.inventory_id}.xlsx'"
+      }
+    end
   end
 
   # GET /exemplars/new
@@ -62,13 +75,19 @@ class ExemplarsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_exemplar
-      @exemplar = Exemplar.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_exemplar
+    @exemplar = Exemplar.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def exemplar_params
-      params.require(:exemplar).permit(:box_id, :cupboard_id, :location, :habitat, :finded_at, :fund)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def exemplar_params
+    params.require(:exemplar).permit(:box_id, :cupboard_id, :location, :habitat, :finded_at, :fund)
+  end
+
+  def exemplars_collection
+    Exemplar.joins('INNER JOIN taxons AS kind ON kind.exemplar_id = exemplars.id').
+      joins('INNER JOIN taxons AS clan ON kind.parent_id = clan.id').
+      joins('INNER JOIN taxons AS family ON clan.parent_id = family.id')
+  end
 end

@@ -12,8 +12,18 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require admin_exemplars.coffee
+//= require select2
+//= require botanists.coffee
+
+
+$( "#dropdown" ).select2({
+    theme: "bootstrap"
+});
+
+$(document).ready(function() {
+    $('#q_family_id_eq, #q_clan_id_eq, #q_kind_id_eq').select2();
+});

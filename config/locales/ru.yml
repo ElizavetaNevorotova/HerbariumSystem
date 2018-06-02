@@ -1,4 +1,11 @@
 ru:
+  date:
+    formats:
+      long: '%D%H%M'
+    month_names: [~, Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь, Октябрь, Ноябрь, Декабрь]
+  time:
+    formats:
+      long: '%H %M'
   taxon:
     levels:
       family: 'Семейство'
@@ -16,9 +23,23 @@ ru:
     models:
       exemplar: 'Экземпляр'
       taxon: 'Таксон'
+      botanist: 'Ботаник'
     attributes:
       taxon:
         name: 'Название'
+      botanist:
+        first_name: 'Имя'
+        last_name: 'Фамилия'
+        patronymic: 'Отчество'
+        position: 'Должность'
+      exemplar:
+        box_id: 'Номер коробки'
+        cupboard_id: 'Номер шкафа'
+        name: 'Название'
+        latin_name: 'Латинское название'
+        location: 'Место нахождения'
+        habitat: 'Место обитания'
+        inventory_id: 'Инвентарный номер'
     errors:
       messages:
         record_invalid: 'Возникли ошибки: %{errors}'

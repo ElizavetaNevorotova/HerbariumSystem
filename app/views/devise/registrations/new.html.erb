@@ -1,0 +1,50 @@
+<div style="display: flex; justify-content: center;">
+  <div style="padding: 25px 75px; border: 1px solid #c90; max-width: 650px">
+    <h2 style="text-align: center;">Регистрация</h2>
+    <br>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <div class="col-md-6 form-group">
+          <%= f.label 'Имя'%>
+          <%= f.input :first_name, required: true, autofocus: true, label: false, class: 'form-control' %>
+        </div>
+        <div class="col-md-5 form-group">
+          <%= f.label 'Фамилия'%>
+          <%= f.input :last_name, required: true, label: false, class: 'form-control' %>
+        </div>
+        <div class="col-md-6 form-group">
+          <%= f.label 'Отчество'%>
+          <%= f.input :patronymic, label: false, class: 'form-control' %>
+        </div>
+        <div class="col-md-5 form-group">
+          <%= f.label 'Место работы'%>
+          <%= f.input :workplace, label: false, class: 'form-control' %>
+        </div>
+        <div class="col-md-6 form-group">
+          <%= f.label 'Должность'%>
+          <%= f.input :position, label: false, class: 'form-control' %>
+        </div>
+        <div class="col-md-5 form-group">
+          <%= f.label 'Email'%>
+          <%= f.input :email, required: true, label: false, class: 'form-control' %>
+        </div>
+        <div class="col-md-6 form-group">
+          <%= f.label 'Пароль'%>
+          <%= f.input :password, required: true, label: false, class: 'form-control' %>
+        </div>
+        <div class="col-md-5 form-group">
+          <%= f.label 'Подтверждение пароля'%>
+          <%= f.input :password_confirmation, required: true, label: false, class: 'form-control'%>
+        </div>
+        <%= f.hidden_field :type, value: 'Contact' %>
+      </div>
+
+      <div class="form-actions" style="text-align: center;">
+        <br>
+        <%= f.button :submit, "Зарегистрироваться" %>
+      </div>
+    <% end %>
+  </div>
+</div>

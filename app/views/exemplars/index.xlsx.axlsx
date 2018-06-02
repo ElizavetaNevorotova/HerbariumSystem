@@ -1,0 +1,34 @@
+wb = xlsx_package.workbook
+header_style = wb.styles.add_style bold: true, alignment: { horizontal: :center }
+wb.add_worksheet(name: "Гербарная этикетка") do |sheet|
+   sheet.add_row ['Инвентарный номер',
+                  "Название семейства (на латинском)",
+                  "Название семейства (на русском)",
+                  "Название рода (на латинском)",
+                  "Название рода (на русском)",
+                  "Название вида (на латинском)",
+                  "Название вида (на русском)",
+                  'Место обитания',
+                  'Место нахождения',
+                  'Дата нахождения',
+                  'Коллекторы',
+                  'Определители'], height: 30, style: header_style
+   @exemplars.each do |exemplar|
+      kind = exemplar.taxons.last
+      clan = kind.parent
+      family = clan.parent
+
+      sheet.add_row [exemplar.inventory_id,
+                     family.latin_name,
+                     family.name,
+                     clan.latin_name,
+                     clan.name,
+                     kind.latin_name,
+                     kind.name,
+                     exemplar.location,
+                     exemplar.habitat,
+                     exemplar.finded_at.strftime('%d/%m/%Y'),
+                     exemplar.finders.map { |finder| full_name_with_initials(finder) }.join(', '),
+                     exemplar.taxons.last.recognizers.map { |recognizer| full_name_with_initials(recognizer) }.join(', ')], height: 30
+   end
+end

@@ -1,0 +1,25 @@
+<div style="display: flex; justify-content: center;">
+  <div style="padding: 25px 75px; border: 1px solid #c90; max-width: 650px">
+    <h2 style="text-align: center;">Вход</h2>
+    <br>
+
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-inputs">
+        <div class="form-group">
+          <%= f.label 'Email' %>
+          <%= f.input :email, required: false, autofocus: true, label: false %>
+        </div>
+        <div class="form-group">
+          <%= f.label 'Пароль' %>
+          <%= f.input :password, required: false, label: false  %>
+        </div>
+      </div>
+
+      <div class="form-actions" style="text-align: center">
+        <%= f.button :submit, "Log in" %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+.container
+  div class='col-md-3 col-lg-3' style='float: right;'
+    = link_to 'Выгрузить', exemplar_path(@exemplar.id, format: :xlsx)
+  div class="col-md-10"
+    div class="panel"
+      div class="panel-body"
+        div class="row"
+          div class="col-md-3 col-lg-3 " align="center"
+            - @exemplar.exemplar_images.each do |image|
+              = image_tag image.image.url(:medium), class: 'img-responsive'
+          div class=" col-md-9 col-lg-9"
+            table class="table table-user-information"
+              tbody
+                - kind = @exemplar.taxons.last
+                - clan = kind.parent
+                - family = clan.parent
+                tr
+                  td.bold-text Инвентарный номер
+                  td = @exemplar.inventory_id
+                tr
+                  td.bold-text Название семейства
+                  td = "#{family.name}/#{family.latin_name}"
+                tr
+                  td.bold-text Название рода
+                  td = "#{clan.name}/#{clan.latin_name}"
+                tr
+                  td.bold-text Название вида
+                  td = "#{kind.name}/#{kind.latin_name}"
+                tr
+                  td.bold-text Место обитания
+                  td = @exemplar.location
+                tr
+                  td.bold-text Место нахождения
+                  td = @exemplar.habitat
+                tr
+                  td.bold-text Дата нахождения
+                  td = @exemplar.finded_at.strftime('%d/%m/%Y')
+                tr
+                  td.bold-text Фонд
+                  td = I18n.t("exemplar.fund.#{@exemplar.fund}")
+                tr
+                  td.bold-text Коллекторы
+                  td = @exemplar.finders.map { |finder| full_name_with_initials(finder) }.join(', ')
+                tr
+                  td.bold-text Определители
+                  td = @exemplar.taxons.last.recognizers.map { |recognizer| full_name_with_initials(recognizer) }.join(', ')
+
+= render 'comments/index.html.erb'

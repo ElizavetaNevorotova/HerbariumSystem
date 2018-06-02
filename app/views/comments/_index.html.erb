@@ -1,0 +1,43 @@
+<div class="panel panel-default widget">
+  <div class="panel-heading">
+    <span class="glyphicon glyphicon-comment"></span>
+    <h3 class="panel-title">Комментарии</h3>
+    <span class="label label-info"> <%= @comments.count %></span>
+  </div>
+  <div class="panel-body">
+    <%- if current_user.present? %>
+        <%= simple_form_for(Comment.new, url: comments_path, method: :post) do |f| %>
+            <div style="margin-left: 10px">
+              <br>
+              <%= f.input :content, label: false, as: :text, input_html: { style: 'width: 95%;' } %>
+              <%= f.hidden_field :exemplar_id, value: @exemplar.id %>
+              <br>
+              <%= f.submit 'Создать комментарий' %>
+
+            </div>
+        <%end%>
+        <br>
+    <%end%>
+    <ul class="list-group">
+      <%- @comments.each do |comment|%>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-xs-2 col-md-1">
+              <img src="http://placehold.it/80" class="img-circle img-responsive" alt="" /></div>
+            <div class="col-xs-10 col-md-11">
+              <div>
+                  'IMAGEEEEEEE'
+                <div class="mic-info">
+                  <%= "#{full_name_with_initials(comment.user)} #{comment.created_at.strftime('%d/%m/%Y')}" %>
+                </div>
+              </div>
+              <div class="comment-text">
+                <%= comment.content %>
+              </div>
+            </div>
+          </div>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+</div>

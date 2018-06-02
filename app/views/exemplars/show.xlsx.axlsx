@@ -1,0 +1,17 @@
+kind = @exemplar.taxons.last
+clan = kind.parent
+family = clan.parent
+wb = xlsx_package.workbook
+header_style = wb.styles.add_style bold: true, alignment: { horizontal: :center }
+wb.add_worksheet(name: "Гербарная этикетка") do |sheet|
+   sheet.merge_cells "A1:B1"
+   sheet.merge_cells "A3:B3"
+   sheet.merge_cells "A5:B5"
+   sheet.add_row ["ГЕРБАРИЙ ИМЕНИ И.И. СПРЫГИНА\nФГБОУ ВО «ПЕНЗЕНСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ»"], height: 30, style: header_style
+   sheet.add_row ['Инвентарный номер', @exemplar.inventory_id], height: 30
+   sheet.add_row ["#{family.name} #{clan.name} #{kind.name}\n#{family.latin_name} #{clan.latin_name} #{kind.latin_name}"], height: 30
+   sheet.add_row ['Место нахождения', @exemplar.location], height: 30
+   sheet.add_row [@exemplar.finded_at.strftime('%d/%m/%Y')], height: 30
+   sheet.add_row ['Собрал', @exemplar.finders.map { |finder| full_name_with_initials(finder) }.join(', ')], height: 30
+   sheet.add_row ['Определил', @exemplar.taxons.last.recognizers.map { |recognizer| full_name_with_initials(recognizer) }.join(', ')], height: 30
+end

@@ -16,17 +16,23 @@ gem 'uglifier', '>= 1.3.0'
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'activeadmin'
+gem 'active_skin'
 gem "paperclip", "~> 5.2.1"
 gem 'slim'
 gem 'simple_form'
 gem 'activeadmin_blaze_theme'
+gem 'rubyzip', '>= 1.2.1'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
+gem 'axlsx_rails'
+gem 'ransack'
+gem 'select2-rails'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+# gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'

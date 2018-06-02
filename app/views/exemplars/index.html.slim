@@ -1,0 +1,41 @@
+.filters-line
+  = search_form_for @q do |f|
+    .filter-block
+      = f.label 'Семейство'
+      = f.select :family_id_eq, Taxon.family.pluck(:name, :id).unshift(['Любое',nil]),
+        html_options: { class: 'dropdown-select' }
+
+    .filter-block
+      = f.label 'Род'
+      = f.select :clan_id_eq, Taxon.clan.pluck(:name, :id).unshift(['Любой', nil]),
+              html_options: {class: 'dropdown-select'}
+
+    .filter-block
+      = f.label 'Вид'
+      = f.select :kind_id_eq, Taxon.kind.pluck(:name, :id).unshift(['Любой', nil]),
+              html_options: {class: 'dropdown-select'}
+
+    .filter-block.right
+      label &nbsp;
+      = f.submit 'Искать', class: 'btn btn-default'
+
+    .filter-block.right
+      label &nbsp;
+      = f.submit 'Экспортировать в Excel', class: 'btn btn-default', onClick: "$(this).closest('form').attr('action', '#{ exemplars_path(format: :xlsx) }')"
+br
+
+table.table
+  thead
+    tr
+      th Название семейства
+      th Название рода
+      th Название вида
+  tbody
+    - @exemplars.each do |exemplar|
+      - kind = exemplar.taxons.last
+      - clan = kind.parent
+      - family = clan.parent
+      tr
+        td = "#{family.name}/#{family.latin_name}"
+        td = "#{clan.name}/#{clan.latin_name}"
+        td = link_to "#{kind.name}/#{kind.latin_name}", exemplar_path(exemplar.id)

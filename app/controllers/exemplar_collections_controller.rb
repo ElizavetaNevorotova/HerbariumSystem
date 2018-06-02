@@ -1,14 +1,15 @@
 class ExemplarCollectionsController < ApplicationController
-  respond_to :json
+  respond_to :js
 
   def index
-    taxon = Taxon.find(params[:parent_id])
+    taxon = Taxon.where(id: params[:parent_id]).first
 
     @collection = if taxon.present?
                     taxon.children.pluck(:name, :id)
                   else
                     []
-                 end
+                  end
+    @collection.unshift(['',''])
   end
 
   private
