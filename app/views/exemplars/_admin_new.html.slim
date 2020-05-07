@@ -36,6 +36,8 @@ div style="margin-left: auto; margin-right: auto; width: 50%"
     br
     = f.label 'Изображение'
     = f.input :image, as: :file, label: false
-
+    br
+    br
+    = f.input :images, as: :file, input_html: { multiple: true }
     br
     = f.submit 'Создать экземпляр'
