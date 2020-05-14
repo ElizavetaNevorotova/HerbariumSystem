@@ -34,8 +34,8 @@ div style="margin-left: auto; margin-right: auto; width: 50%"
     = f.date_select :finded_at, order: [:day, :month, :year], label: false
     br
     br
-    = f.label 'Изображение'
-    = f.input :image, as: :file, label: false
-
+    br
+    = f.label 'Изображения (возможен выбор нескольких файлов)'
+    = f.input :images, as: :file, input_html: { multiple: true }, label: false
     br
     = f.submit 'Создать экземпляр'

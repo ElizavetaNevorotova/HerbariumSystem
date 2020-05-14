@@ -1,5 +1,8 @@
+# coding: utf-8
 ActiveAdmin.register Exemplar do
   menu priority: 3, label: 'Экземпляры'
+
+  permit_params images: []
 
   controller do
     def create
@@ -18,7 +21,7 @@ ActiveAdmin.register Exemplar do
 
     def create_params
       params.require(:exemplar).permit(:inventory_id, :box_id, :cupboard_id, :location, :habitat,
-                                       :finded_at, :fund, finder_ids: [], kind: [:family_id, :clan_id, :name, :latin_name, recognizer_ids: []])
+                                       :finded_at, :fund, finder_ids: [], kind: [:family_id, :clan_id, :name, :latin_name, recognizer_ids: []], images: [])
     end
 
     def exemplar_params
@@ -91,7 +94,7 @@ ActiveAdmin.register Exemplar do
         exemplar.finded_at.strftime('%d/%m/%Y')
       end
       row '_' do |exemplar|
-        image_tag exemplar.exemplar_images.first.image.url(:medium)
+        image_tag rails_blob_url(exemplar.images.first)
       end
     end
   end

@@ -4,7 +4,9 @@ class Exemplar < ApplicationRecord
   has_many :exemplar_finders
   has_many :finders, through: :exemplar_finders, source: 'botanist', class_name: 'Botanist'
   has_many :taxons, dependent: :nullify
-  has_many :exemplar_images
+  has_many :exemplar_images # FIXME: remove this (see :images below)
+
+  has_many_attached :images
 
   validates_presence_of :inventory_id
   validates_uniqueness_of :inventory_id
